@@ -1,6 +1,8 @@
 package it21505.java.project.DAO;
 
 import java.util.List;
+
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,7 +24,6 @@ public class UserDAO implements DAO<User> {
 	private SessionFactory sessionFactory;
 
 	@Override
-	@Transactional
 	public List<User> getAll() {
 		List<User> users = null;
 		try {
@@ -35,6 +36,7 @@ public class UserDAO implements DAO<User> {
 
 	}
 
+	/*
 	@Override
 	@Transactional
 	public List<User> getUsersByRole(String role) {
@@ -48,9 +50,10 @@ public class UserDAO implements DAO<User> {
 		return users;
 	}
 
+*/
+	
 	@Override
-	@Transactional
-	public User getUserById(String id) {
+	public User getById(String id) {
 		User user=null;
 		try {
 		Session session = sessionFactory.getCurrentSession();
@@ -62,36 +65,38 @@ public class UserDAO implements DAO<User> {
 	}
 
 	@Override
-	@Transactional
 	public void save(User user) {
-		
 		Session session = sessionFactory.getCurrentSession();
-		session.save(user);		
-		System.out.println("Saved");
-		
-		
+		session.save(user);			
 	}
 
 	@Override
-	@Transactional
 	public void update(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		session.update(user);
-		System.out.println("Updated");
+		String username = user.getUsername().split(" ")[0];
+		String prevusername = user.getUsername().split(" ")[1];
+		System.out.println("PREV :" + prevusername + " USER :" + username);
+		
+		Query query = session.createQuery("update User set username = :username , password = :password , enabled = :enabled , name = :name , surname = :surname , email = :email" +
+				" where username = :prev");
+		query.setParameter("username", username);
+		query.setParameter("password", user.getPassword());
+		query.setParameter("enabled", true);
+		query.setParameter("name", user.getName());
+		query.setParameter("surname", user.getSurname());
+		query.setParameter("email", user.getEmail());
+		query.setParameter("prev", prevusername);
+		query.executeUpdate();
 			
-
+		//session.update(user);
 	}
 
 	@Override
-	@Transactional
 	public void delete(String id) {
 		
 		Session session = sessionFactory.getCurrentSession();
 		User user = session.get(User.class, id);
 		session.delete(user);
-		System.out.println("Deleted");
-		
-
 	}
 	
 	/*

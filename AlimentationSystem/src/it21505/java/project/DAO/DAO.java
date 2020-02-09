@@ -6,9 +6,7 @@ public interface DAO<T> {
 
 	List<T> getAll();
 	
-	List<T> getUsersByRole(String param);
-	
-	T getUserById(String param);
+	T getById(String param);
 		
     void save(T t);
      

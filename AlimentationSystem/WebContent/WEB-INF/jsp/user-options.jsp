@@ -32,18 +32,16 @@
 		</sec:authorize>
 	</div>
 	<div class="main">
-		<h2>Write the percentage of the student that can use the feeding services this year.</h2>
-		<h3>By hitting the button you also start the process to allow students send applications</h3>
-		<p>Total number of students in the university this year : <b>${total}</b> and from those the number of students that got freeding is : <b>${number}</b></p>
-		<form:form action="processUpdateLimit">
-			<input name="limit" type="text" required><b> %</b>
-			<button type="submit">Update</button>
-		</form:form>
-		<c:if test="${param.success != null}">
-           <div class="alert-info">  
-  			Database is successfully updated ! The number of students that are entitled for the feeding services are <strong>${number}</strong>
-		</div>
-   </c:if>
+	<h2>Click here to finish the application process.</h2>
+	<form:form action="processFinish">
+	<button type="submit">Finish</button>
+	</form:form>
+	<hr>
+	
+	<h2>Change the total number of student in the university. </h2>
+	<p>Current : <b>${total}</b></p><br>
+	New :  <input name="total" type=text/>
 	</div>
-</body>
+	
+	</body>
 </html>

@@ -1,6 +1,7 @@
-/*
+
 package it21505.java.project.Services;
 
+import it21505.java.project.Models.Authorities;
 import it21505.java.project.Models.User;
 import java.util.List;
 
@@ -8,16 +9,20 @@ public interface UserService {
 
 	public List<User> getAll();
 	
-	List<User> getUsersByRole(String param);
+	User getUserById(String id);
 	
-	User getUserById(String param);
+	int getIdByUsername(String username);
 		
-    void save(User user);
+    void saveUser(User user);
      
-    void update(User user);
+    void updateUser(User user);  
      
-    void delete(String param);
+    void deleteUser(String id);
        
-
+    void saveRole(Authorities authority);
+    
+    void updateRole(Authorities authority);
+    
+    void deleteRole(String id);
+    
 }
-*/

@@ -2,7 +2,8 @@
 
 body,html{
     height: 100%;
-    margin:0;
+    margin: 0;
+    
 }
 
 .top{
@@ -38,17 +39,16 @@ body,html{
 }
 
 .sidenav{
-  /*margin-top:48px;*/
+  margin-top:48px;
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 170px; /* Set the width of the sidebar */
-  /*position: fixed; */
+  position: fixed; 
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
   background-color: #404040; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
-  float:left;
 }
 
 .sidenav a {
@@ -65,50 +65,20 @@ body,html{
 }
 
 .main{
-	margin-left: 25px;
-	float:left;
-}
-
-input{
-	width:100px;
-	height:25px;
-	background-color:white;
-	border: 1px solid grey;
-	margin-bottom:7px;
-	color:black;
-	padding-left:15px;
-}
-
-h5{
+	margin-left: 195px;
 	font-family:Arial;
-	font-size:15px;
+	
 }
 
-.activate{
-  border: none;
-  color: white;
-  padding: 7px 45px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 2px;
-  margin-bottom: 10px;
+.alert-info{
+	width:400px;
   margin-top:20px;
-  background-color:#4CAF50;
-	margin-left:20px;
-}
-
-.decline{
-	border: none;
-  color: white;
-  padding: 7px 45px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 2px;
-  margin-bottom: 10px;
-  margin-top:20px;
-  background-color:#f44336;
+  padding: 25px 0px 25px 25px;
+  font-size:16px;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  border-radius: 7px;
+  background-color:#B0E0E6;
+  color:#262626;
 }

@@ -11,12 +11,14 @@
 <title>Check Student</title>
 </head>
 <body>
-<div class="top"><a href="home" class="panel">Alimentation System</a><p class="user"><sec:authorize access="isAuthenticated()"><b><sec:authentication property="principal.username" /> </b><sec:authentication property="principal.authorities"/></sec:authorize><a class="logout" href="logout">logout</a></p></div>
+<div class="top"><a href="home" class="panel">Feeding System</a><p class="user"><sec:authorize access="isAuthenticated()"><b><sec:authentication property="principal.username" /> </b><sec:authentication property="principal.authorities"/></sec:authorize><a class="logout" href="logout">logout</a></p></div>
 	<div class="sidenav">
 		<a href="home">Home</a> 
 		<a href="student-list">Check Students</a>
+		<a href="application-list">Check Applications</a> 	
 		 <sec:authorize access="hasAuthority('Supervisor')">
 		 <a href="update-limit">Update Limit</a>
+		 <a href="options">Options</a>
 		 </sec:authorize>
 	</div>
 	<div class="main">
@@ -38,9 +40,7 @@ Department:<br>
 <input type="text" value="${student.department}" disabled style="width:300px"/><br>
 Semester:<br>
 <input type="text" value="${student.semester}" disabled style="width:300px"/><br>
-Register number:<br>
-<input type="text" value="${student.record}" disabled style="width:300px"/><br>
-
+<!--  
 <h5>Identification Data</h5>
 <hr>
 ID Number:<br>
@@ -49,6 +49,8 @@ Adoption Day:<br>
 <input type="text" value="${student.identification.adoptionDay}" disabled style="width:300px"/><br>
 Issuing Authority:<br>
 <input type="text" value="${student.identification.issuingAuthority}" disabled style="width:300px"/><br>
+Register number:<br>
+<input type="text" value="${student.identification.record}" disabled style="width:300px"/><br>
 
 <h5>Permanent Residence</h5>
 <hr>
@@ -64,8 +66,10 @@ Telephone:<br>
 <input type="text" value="${student.residence.telephone}" disabled style="width:300px"/><br>
 Mobile Phone:<br>
 <input type="text" value="${student.residence.mobile}" disabled style="width:300px"/><br>
-<h5>Click to check student's application</h5>
-<a class="proceed" href="<c:url value="check-application"> <c:param name="id" value="${student.id}" /></c:url>">Proceed</a>
+-->
+
+<a class="decline" href="<c:url value="processDeclineStudent"> <c:param name="id" value="${student.id}" /></c:url>">Decline</a>
+<a class="activate" href="<c:url value="processActivateStudent"> <c:param name="id" value="${student.id}" /></c:url>">Activate</a>
 </div>
 </body>
 </html>

@@ -14,7 +14,10 @@ import javax.persistence.Table;
 @Table(name = "Authorities")
 public class Authorities {
 	
-	  @Id  	  
+	  @Id  
+	  @Column(name = "ID")
+	  private int id;
+	  
 	  @Column(name = "AUTHORITY")
 	  private String authority;
 	    
@@ -26,10 +29,18 @@ public class Authorities {
 		  
 	  }
 	  
-	public Authorities(String authority, User user) {
-		super();
-		this.authority = authority;
-		this.user = user;
+	  public Authorities(String authority, User user) {
+			super();
+			this.authority = authority;
+			this.user = user;
+		}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getAuthority() {

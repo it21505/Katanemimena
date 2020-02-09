@@ -2,10 +2,15 @@ package it21505.java.project.Models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "application")
@@ -27,6 +32,7 @@ public class Application {
 	@Column(name = "FAMILYINCOME")
 	private String familyIncome;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "STUDENT_ID")
 	private Student student;
@@ -36,13 +42,12 @@ public class Application {
 	}
 
 	public Application( String cityOfUniversity, String numberOfStudyingBrothers, String income,
-			String familyIncome,Student student) {
+			String familyIncome) {
 		super();
 		this.cityOfUniversity = cityOfUniversity;
 		this.numberOfStudyingBrothers = numberOfStudyingBrothers;
 		this.income = income;
 		this.familyIncome = familyIncome;
-		this.student = student;
 	}
 
 	public int getId() {
@@ -92,8 +97,7 @@ public class Application {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
+
 	
 	
 }

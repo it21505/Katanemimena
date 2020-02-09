@@ -19,7 +19,6 @@ public class StudentDAO implements DAO<Student> {
 	private SessionFactory sessionFactory;
 
 	@Override
-	@Transactional
 	public List<Student> getAll() {
 		List<Student> students = null;
 		try {
@@ -33,14 +32,7 @@ public class StudentDAO implements DAO<Student> {
 	}
 
 	@Override
-	public List<Student> getUsersByRole(String param) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional
-	public Student getUserById(String id) {
+	public Student getById(String id) {
 		Student student=null;
 		try {
 		Session session = sessionFactory.getCurrentSession();
@@ -54,20 +46,23 @@ public class StudentDAO implements DAO<Student> {
 
 	@Override
 	public void save(Student student) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.save(student);		
 		
 	}
 
 	@Override
 	public void update(Student student) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(student);
 		
 	}
 
 	@Override
-	public void delete(String param) {
-		// TODO Auto-generated method stub
-		
+	public void delete(String id) {
+		Session session = sessionFactory.getCurrentSession();
+		Student student = session.get(Student.class, id);
+		session.delete(student);
 	}
 
 	

@@ -39,7 +39,7 @@ body,html{
 
 .sidenav{
   /*margin-top:48px;*/
-  height: 100%; /* Full-height: remove this if you want "auto" height */
+  height: 220%; /* Full-height: remove this if you want "auto" height */
   width: 170px; /* Set the width of the sidebar */
   /*position: fixed; */
   z-index: 1; /* Stay on top */
@@ -85,7 +85,7 @@ input{
 	padding-left:15px;
 }
 
-.activate{
+.approve{
   border: none;
   color: white;
   padding: 7px 45px;
@@ -97,8 +97,10 @@ input{
   margin-bottom: 10px;
   margin-top:20px;
   background-color:#4CAF50;
-	margin-left:20px;
+  margin-left:20px;
+  
 }
+
 .decline{
 	border: none;
   color: white;

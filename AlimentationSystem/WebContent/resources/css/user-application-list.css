@@ -90,7 +90,6 @@ td,th{
 	border: 1px solid #ddd;
     padding: 6px;
 }
-
 .action{
 	color:black;
 	
@@ -116,8 +115,8 @@ tr:hover {
           color:black;
           cursor: pointer;
         }
-        
-.alert {
+ 
+ .alert {
   margin-top:20px;
   padding: 25px 0px 25px 25px;
   font-size:20px;
@@ -155,4 +154,4 @@ tr:hover {
   text-align:center;
 }
 
-
+    

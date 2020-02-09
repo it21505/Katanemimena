@@ -36,7 +36,8 @@ public class User {
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
+	//Problem when using cascadeType=ALL - I can't have more than one user with same authority
+	@OneToMany(/*cascade = CascadeType.ALL,*/ mappedBy = "user",fetch = FetchType.EAGER)
 	private Set<Authorities> authorities = new HashSet<>();;
 
 	public User() {

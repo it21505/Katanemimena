@@ -17,6 +17,7 @@ import it21505.java.project.DAO.UserDAO;
 import it21505.java.project.Models.Authorities;
 import it21505.java.project.Models.Student;
 import it21505.java.project.Models.User;
+import it21505.java.project.Services.UserServiceImpl;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,17 +25,16 @@ import it21505.java.project.Models.User;
 public class AdminController{
 	
 	@Autowired
-	private UserDAO userDAO;
+	private UserServiceImpl userService;
 		
 	@RequestMapping("/login")
 	public String showALoginPage() {
 		return "admin-login";
 	}
-	
-	
+		
 	@RequestMapping(value = "/home",method=RequestMethod.GET)
 	public String showHomePage(Model model) {
-		List<User> allusers = userDAO.getAll();
+		List<User> allusers = userService.getAll();
 		model.addAttribute("allusers", allusers);
 		return "admin-home";
 	}
@@ -49,15 +49,21 @@ public class AdminController{
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");		
-		String role = request.getParameter("role");
+		String roles[] = request.getParameterValues("roles");
 		String name = request.getParameter("name");
 		String surname = request.getParameter("surname");
 		String email = request.getParameter("email");
 		String encpass = passwordEncoder(password);
-		User user = new User(username,encpass,name,surname,email);	
-		Authorities authority = new Authorities(role,user);
-		user.getAuthorities().add(authority);		
-		userDAO.save(user);
+		User user = new User(username,encpass,name,surname,email);
+		userService.saveUser(user);
+		for(String role : roles) {
+			Authorities authority = new Authorities(role,user);
+			userService.saveRole(authority);
+		}
+		
+		//Authorities authority = new Authorities(roles,user);
+		//user.getAuthorities().add(authority);		
+		//userService.save(user,authority);
 		return "redirect:/admin/home";
 	}
 	
@@ -68,24 +74,33 @@ public class AdminController{
 			return "redirect:/home";
 		}
 		String id = request.getParameter("userId");
-		User user = userDAO.getUserById(id);
+		User user = userService.getUserById(id);
 	    model.addAttribute("user",user);
 		return "admin-update";
 	}
 	
 	@RequestMapping(value = "/processAdminUpdateForm" , method=RequestMethod.POST )
-	public String processUpdateForm(HttpServletRequest request, Model model) {
+	public String processUpdateForm(HttpServletRequest request, Model model) {		
+		String prevUsername = request.getParameter("id");
+		int id = userService.getIdByUsername(prevUsername);
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String role = request.getParameter("role");
+		String roles[] = request.getParameterValues("roles");
 		String name = request.getParameter("name");
 		String surname = request.getParameter("surname");
 		String email = request.getParameter("email");
 		String encpass = passwordEncoder(password);
-		User user = new User(username,encpass,name,surname,email);
-		Authorities authority = new Authorities(role,user);
-		user.getAuthorities().add(authority);		
-		userDAO.update(user);
+		User user = new User(username + " " + prevUsername,encpass,name,surname,email);
+		
+		userService.deleteRole(prevUsername);
+		userService.updateUser(user);
+		user = new User(username,encpass,name,surname,email);
+		for(String role : roles) {			
+			Authorities authority = new Authorities(role,user);
+			userService.saveRole(authority);
+		}
+		
+		
 		return "redirect:/admin/home";
 	}
 	
@@ -93,9 +108,25 @@ public class AdminController{
 	public String processDeleteForm(HttpServletRequest request, Model model) {
 		String id = request.getParameter("userId");
 		System.out.println(id);
-		userDAO.delete(id);
+		userService.deleteRole(id);
+		userService.deleteUser(id);		
 		return "redirect:/admin/home";
 	}
+	
+	@RequestMapping(value = "/roles" , method=RequestMethod.GET )
+	public String showRolesForm(Model model) {
+		List<User> allusers = userService.getAll();
+		model.addAttribute("allusers", allusers);
+		return "admin-roles";
+	}
+	
+	@RequestMapping(value = "/processAlgo" , method=RequestMethod.POST )
+	public String processAlgo(HttpServletRequest request, Model model) {
+		String roles[] = request.getParameterValues("roles");
+		System.out.println(roles[1]);
+		return null;
+	}
+	
 	
 	public String passwordEncoder(String password) {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();

@@ -4,9 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 <link href="<c:url value="/resources/css/admin-add.css" />" rel="stylesheet">
 <meta charset="ISO-8859-1">
 <title>Add User</title>
@@ -18,18 +22,31 @@
 <h3>Add New User</h3>
 <p>Create a new user and add them to the site</p>
 	<form:form action="processAdminAddForm" method="post">		
-		<input name="username" type="text" placeholder="Username" required />		
-		<input name="password" type="password" placeholder="Password" required />		
+		<input class="input" name="username" type="text" placeholder="Username" required />		
+		<input class="input" name="password" type="password" placeholder="Password" required />		
+		<!--  	
 		<select name="role">
 			<option value="Admin">Admin</option>
 			<option value="Employee">Employee</option>
 			<option value="Supervisor">Supervisor</option>
-			<option value="Student">Student</option>
-		</select><br>	
-		<input name="name" type="text" placeholder="Name" required />		
-		<input name="surname" type="text" placeholder="Surname" required />		
-		<input name="email" type="email" placeholder="Email" required /><br>
-		<button type="submit" >Save</button>
+		</select>
+				-->		
+		<input class="input" name="name" type="text" placeholder="Name" required />		
+		<input class="input" name="surname" type="text" placeholder="Surname" required />		
+		<input class="input" name="email" type="email" placeholder="Email" required />
+		<script>		
+		$(document).ready(function() {
+		    $('.js-example-basic-multiple').select2();
+		});		
+		</script>
+		<p>Add roles to the user</p>
+		<select class="js-example-basic-multiple" name="roles" multiple="multiple">
+  			<option value="Admin">Admin</option>
+  			<option value="Employee">Employee</option>
+  			<option value="Supervisor">Supervisor</option>
+  			</select>
+		<br>
+		<button class="button" type="submit" >Save</button>
 	</form:form>
 </div>
 

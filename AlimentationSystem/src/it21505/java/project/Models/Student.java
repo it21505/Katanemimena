@@ -1,10 +1,20 @@
 package it21505.java.project.Models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "student")
@@ -38,35 +48,49 @@ public class Student {
 	@Column(name = "SEMESTER")
 	private int semester;
 	
-	@Column(name = "RECORD")
-	private long record;
+	@Column(name = "CHECKED")
+	private boolean checked;
 	
 	@Column(name = "ACTIVE")
 	private boolean active;
 	
-	@Column(name = "CHECKED")
-	private boolean checked;
+	@Column(name = "SEND")
+	private boolean send;
+	
+	@Column(name = "APPROVED")
+	private boolean approved;
 	
 	@Column(name = "SCORE")
 	private int score;
 	
-	@OneToOne(mappedBy = "student")
+	@JsonIgnore
+    @JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL , mappedBy = "student",fetch = FetchType.EAGER)
 	private Identification identification;
 	
-	@OneToOne(mappedBy = "student")
+	@JsonIgnore
+    @JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL , mappedBy = "student",fetch = FetchType.EAGER)
 	private Residence residence;
 	
-	@OneToOne(mappedBy = "student")
+	@JsonIgnore
+    @JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL , mappedBy = "student",fetch = FetchType.EAGER)
 	private Application application;
 	
+	@JsonIgnore
+    @JsonManagedReference
+	@JoinColumn(name = "LOGIN_ID", unique = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	private Login login;
 	
 	public Student() {
 		
 	}
 	
 	public Student(String name, String surname, String email, String fatherName, String motherName, String university,
-			String department, int semester, long record, Identification identification, Residence residence,Application application,
-			boolean active,boolean checked,int score) {
+			String department, int semester, Identification identification, Residence residence,Application application,
+			Login login ,boolean checked ,  boolean active, boolean send , boolean approved,int score) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -76,16 +100,17 @@ public class Student {
 		this.university = university;
 		this.department = department;
 		this.semester = semester;
-		this.record = record;
 		this.identification = identification;
 		this.residence = residence;
 		this.application = application;
-		this.active = active;
+		this.login = login;
 		this.checked = checked;
+		this.active = active;
+		this.send = send;
+		this.approved = approved;
 		this.score = score;
 	}
 
-	
 	
 	public int getId() {
 		return id;
@@ -159,13 +184,6 @@ public class Student {
 		this.semester = semester;
 	}
 
-	public long getRecord() {
-		return record;
-	}
-
-	public void setRecord(long record) {
-		this.record = record;
-	}
 
 	public Identification getIdentification() {
 		return identification;
@@ -183,20 +201,36 @@ public class Student {
 		this.residence = residence;
 	}
 
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
 	public boolean isChecked() {
 		return checked;
 	}
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}	
+
+	public boolean isSend() {
+		return send;
+	}
+
+	public void setSend(boolean send) {
+		this.send = send;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 	public Application getApplication() {
@@ -207,6 +241,14 @@ public class Student {
 		this.application = application;
 	}
 
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+	
 	public int getScore() {
 		return score;
 	}
@@ -241,5 +283,6 @@ public class Student {
 		}
 		return score;
 	}
+	
 	
 }

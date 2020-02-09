@@ -7,9 +7,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "residence")
 public class Residence {
+	
+	@Id
+	@Column(name = "ID")
+	private int id;
 	
 	@Column(name = "STREET")
 	private String street;
@@ -23,13 +31,13 @@ public class Residence {
 	@Column(name = "POSTALCODE")
 	private String postalCode;
 	
-	@Id
 	@Column(name = "TELEPHONE")
 	private String telephone;
 	
 	@Column(name = "MOBILE")
 	private String mobile;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "STUDENT_ID")
 	private Student student;
@@ -38,7 +46,7 @@ public class Residence {
 		
 	}
 	
-	public Residence(String street, String number, String city, String postalCode, String telephone, String mobile,Student student) {
+	public Residence(String street, String number, String city, String postalCode, String telephone, String mobile) {
 		super();
 		this.street = street;
 		this.number = number;
@@ -46,7 +54,7 @@ public class Residence {
 		this.postalCode = postalCode;
 		this.telephone = telephone;
 		this.mobile = mobile;
-		this.student = student;
+		
 	}
 
 	public String getStreet() {
@@ -104,8 +112,6 @@ public class Residence {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
 	
 	
 }
