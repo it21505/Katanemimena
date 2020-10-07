@@ -1,3 +1,3 @@
 # Katanemimena
 
-Website made with Java Spring framework . It is a fooding system for the students of the university . 
+Website made with Java Spring framework . It is a system that οffers feeding services to the students of the university . 
